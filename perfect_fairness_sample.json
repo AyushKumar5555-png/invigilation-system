@@ -1,0 +1,30 @@
+{
+    "exam_type": "midsem",
+    "category_ratio_mode": "target_load_scaling",
+    "categories": [
+        {"name": "Professor", "ratio_weight": 1.0},
+        {"name": "Associate Professor", "ratio_weight": 1.0},
+        {"name": "Assistant Professor", "ratio_weight": 1.0}
+    ],
+    "faculty_list": [
+        {"id": "F1", "name": "Prof. A. Kumar", "category": "Professor", "pg_timetable_blocks": [], "availability_overrides": []},
+        {"id": "F2", "name": "Prof. B. Singh", "category": "Professor", "pg_timetable_blocks": [], "availability_overrides": []},
+        {"id": "F3", "name": "Assoc. Prof. C. Sharma", "category": "Associate Professor", "pg_timetable_blocks": [], "availability_overrides": []},
+        {"id": "F4", "name": "Assoc. Prof. D. Gupta", "category": "Associate Professor", "pg_timetable_blocks": [], "availability_overrides": []},
+        {"id": "F5", "name": "Asst. Prof. E. Patel", "category": "Assistant Professor", "pg_timetable_blocks": [], "availability_overrides": []},
+        {"id": "F6", "name": "Asst. Prof. F. Mehta", "category": "Assistant Professor", "pg_timetable_blocks": [], "availability_overrides": []}
+    ],
+    "sessions": [
+        {"id": "D11", "day": 1, "session_num": 1, "label": "Monday FN", "required_invigilators": 2, "day_weight": 1.0, "duration_hours": 2.0},
+        {"id": "D12", "day": 1, "session_num": 2, "label": "Monday AN", "required_invigilators": 2, "day_weight": 1.0, "duration_hours": 2.0},
+        {"id": "D21", "day": 2, "session_num": 1, "label": "Tuesday FN", "required_invigilators": 2, "day_weight": 1.0, "duration_hours": 2.0}
+    ],
+    "history": [
+        {"faculty_id": "F1", "previous_imbalance": 0.0},
+        {"faculty_id": "F2", "previous_imbalance": 0.0},
+        {"faculty_id": "F3", "previous_imbalance": 0.0},
+        {"faculty_id": "F4", "previous_imbalance": 0.0},
+        {"faculty_id": "F5", "previous_imbalance": 0.0},
+        {"faculty_id": "F6", "previous_imbalance": 0.0}
+    ]
+}

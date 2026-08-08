@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.git/
+.gitignore
+.agents/
+.gemini/
+tests/
+walkthrough.md
+implementation_plan.md
+task.md

@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invigilation Duty Allocation System - BIT MESRA</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo-area">
+                <div class="crest-container">
+                    <svg viewBox="0 0 24 24" class="crest-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="crestGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#0f3ba2" />
+                                <stop offset="100%" stop-color="#1e40af" />
+                            </linearGradient>
+                        </defs>
+                        <!-- Outer Shield -->
+                        <path d="M12 2C6.5 4 4 6 4 11C4 16.5 7.5 20.5 12 22C16.5 20.5 20 16.5 20 11C20 6 17.5 4 12 2Z" fill="url(#crestGrad)" />
+                        <!-- Shield Inner Border -->
+                        <path d="M12 3.5C7.5 5.3 5.5 7.1 5.5 11C5.5 15.3 8.5 18.8 12 20.2C15.5 18.8 18.5 15.3 18.5 11C18.5 7.1 16.5 5.3 12 3.5Z" stroke="#ffffff" stroke-width="1" fill="none" opacity="0.3" />
+                        <!-- Open Book Illustration -->
+                        <path d="M12 14.5C10.5 13.5 8.5 13.5 7 14V8C8.5 7.5 10.5 7.5 12 8.5C13.5 7.5 15.5 7.5 17 8V14C15.5 13.5 13.5 13.5 12 14.5Z" fill="#ffffff" />
+                        <path d="M12 8.5V14.5" stroke="#0f3ba2" stroke-width="1" />
+                        <!-- Star -->
+                        <polygon points="12,5 12.8,6.8 14.8,6.8 13.2,8 13.8,9.8 12,8.6 10.2,9.8 10.8,8 9.2,6.8 11.2,6.8" fill="#f59e0b" />
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <span class="logo-univ">BIT</span>
+                    <span class="logo-sub">MESRA</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" id="nav-dashboard">
+                    <span class="nav-icon">📊</span> Dashboard
+                </a>
+                <a href="#" class="nav-item" id="nav-faculty" onclick="openSettingsModal('faculty')">
+                    <span class="nav-icon">👥</span> Faculty
+                </a>
+                <a href="#" class="nav-item" id="nav-sessions" onclick="openSettingsModal('sessions')">
+                    <span class="nav-icon">📅</span> Sessions
+                </a>
+                <a href="#" class="nav-item" id="nav-allocation" onclick="triggerSolve()">
+                    <span class="nav-icon">⚙️</span> Allocation
+                </a>
+                <a href="#" class="nav-item" id="nav-conflicts" onclick="scrollToElement('conflict-insights-card')">
+                    <span class="nav-icon">⚠️</span> Conflicts
+                </a>
+                <a href="#" class="nav-item" id="nav-reports" onclick="exportConfig()">
+                    <span class="nav-icon">📋</span> Reports
+                </a>
+                <a href="#" class="nav-item" id="nav-settings" onclick="openSettingsModal('general')">
+                    <span class="nav-icon">🔧</span> Settings
+                </a>
+            </nav>
+
+            <!-- 3D Sidebar Building Visual -->
+            <div class="sidebar-visual">
+                <div class="svg-building-wrapper">
+                    <!-- SVG Neumorphic Academic Building -->
+                    <svg viewBox="0 0 120 100" class="building-svg">
+                        <defs>
+                            <linearGradient id="roofBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#3b82f6" />
+                                <stop offset="100%" stop-color="#0f3ba2" />
+                            </linearGradient>
+                            <linearGradient id="wallLight" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#ffffff" />
+                                <stop offset="100%" stop-color="#f1f5f9" />
+                            </linearGradient>
+                            <linearGradient id="wallDark" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#cbd5e1" />
+                                <stop offset="100%" stop-color="#94a3b8" />
+                            </linearGradient>
+                            <linearGradient id="pillar3D" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#ffffff" />
+                                <stop offset="50%" stop-color="#e2e8f0" />
+                                <stop offset="100%" stop-color="#cbd5e1" />
+                            </linearGradient>
+                            <linearGradient id="grassGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#34d399" />
+                                <stop offset="100%" stop-color="#059669" />
+                            </linearGradient>
+                            <filter id="shadow3D" x="-10%" y="-10%" width="130%" height="130%">
+                                <feDropShadow dx="2" dy="8" stdDeviation="4" flood-color="#0f172a" flood-opacity="0.12" />
+                            </filter>
+                        </defs>
+                        <!-- Ground Base Platform -->
+                        <polygon points="15,75 60,92 105,75 60,58" fill="#e2e8f0" />
+                        <polygon points="15,75 60,92 60,96 15,79" fill="#cbd5e1" />
+                        <polygon points="60,92 105,75 105,79 60,96" fill="#94a3b8" />
+                        
+                        <!-- Lawn Green Area -->
+                        <polygon points="18,74 60,90 102,74 60,60" fill="url(#grassGrad)" opacity="0.9" />
+
+                        <!-- Main Steps -->
+                        <polygon points="35,70 60,80 85,70 60,60" fill="#f1f5f9" />
+                        <polygon points="35,70 60,80 60,82 35,72" fill="#cbd5e1" />
+                        <polygon points="60,80 85,70 85,72 60,82" fill="#94a3b8" />
+
+                        <!-- Building Base Block -->
+                        <polygon points="38,65 60,74 82,65 60,56" fill="#ffffff" />
+                        <polygon points="38,65 60,74 60,77 38,68" fill="#e2e8f0" />
+                        <polygon points="60,74 82,65 82,68 60,77" fill="#cbd5e1" />
+
+                        <!-- Back Walls -->
+                        <polygon points="40,40 60,48 80,40 80,65 60,74 40,65" fill="url(#wallLight)" />
+                        <polygon points="60,48 80,40 80,65 60,74" fill="url(#wallDark)" />
+
+                        <!-- Pillars -->
+                        <rect x="43" y="44" width="3" height="23" fill="url(#pillar3D)" />
+                        <rect x="51" y="46" width="3" height="24" fill="url(#pillar3D)" />
+                        <rect x="59" y="47" width="3" height="25" fill="url(#pillar3D)" />
+                        <rect x="66" y="46" width="3" height="24" fill="url(#pillar3D)" />
+                        <rect x="74" y="44" width="3" height="23" fill="url(#pillar3D)" />
+
+                        <!-- Roof Structure (Pediment) -->
+                        <polygon points="36,40 60,25 84,40" fill="url(#roofBlue)" filter="url(#shadow3D)" />
+                        <polygon points="36,40 60,25 60,28 36,43" fill="#3b82f6" />
+                        <polygon points="60,25 84,40 84,43 60,28" fill="#1d4ed8" />
+
+                        <!-- Doorway -->
+                        <polygon points="56,58 64,61 64,72 56,69" fill="#1e293b" />
+                        
+                        <!-- 3D Trees -->
+                        <!-- Left Tree -->
+                        <ellipse cx="28" cy="62" rx="7" ry="10" fill="#10b981" filter="url(#shadow3D)" />
+                        <ellipse cx="26" cy="60" rx="5" ry="7" fill="#34d399" />
+                        <rect x="27" y="70" width="2" height="6" fill="#78350f" />
+                        <!-- Right Tree -->
+                        <ellipse cx="92" cy="62" rx="7" ry="10" fill="#047857" filter="url(#shadow3D)" />
+                        <ellipse cx="90" cy="60" rx="5" ry="7" fill="#059669" />
+                        <rect x="91" y="70" width="2" height="6" fill="#78350f" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Footer Academic Term Info -->
+            <div class="sidebar-footer">
+                <div class="footer-meta-box">
+                    <div class="meta-header">
+                        <span class="meta-icon">📅</span>
+                        <div class="meta-text">
+                            <label>Academic Term</label>
+                            <strong id="term-name">Spring 2026</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-meta-box">
+                    <div class="meta-header">
+                        <span class="meta-icon">⏰</span>
+                        <div class="meta-text">
+                            <label>Exam Period</label>
+                            <strong id="exam-period-dates">May 20 – Jun 10, 2026</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Body -->
+        <main class="main-content">
+            <!-- Header bar -->
+            <header class="main-header">
+                <div class="header-left">
+                    <button class="hamburger-btn">
+                        <span></span><span></span><span></span>
+                    </button>
+                    <h1 class="header-title">Invigilation Duty Allocation System</h1>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="global-search" placeholder="Search sessions, faculty, rooms..." oninput="filterScheduleGrid()">
+                        <span class="search-kbd">/</span>
+                    </div>
+                    <div class="header-actions">
+                        <button class="action-icon notification-btn">
+                            🔔
+                            <span class="badge red-badge">3</span>
+                        </button>
+                        <button class="action-icon" onclick="openHelpModal()">
+                            ❓
+                        </button>
+                        <div class="user-profile">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100" alt="Avatar" class="avatar-img">
+                            <div class="user-info">
+                                <span class="user-name">Dr. Supratim Biswas</span>
+                                <span class="user-role">Exam Controller</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content Scroll Area -->
+            <div class="dashboard-scroll">
+                
+                <!-- Hero Section Banner -->
+                <section class="hero-section">
+                    <div class="hero-text-content">
+                        <span class="hero-tagline">INTELLIGENT. FAIR. TRANSPARENT.</span>
+                        <h2 class="hero-heading">Smarter Invigilation Allocation<br>for a Fairer Examination Process</h2>
+                        <p class="hero-description">AI-powered optimization ensures balanced workload distribution, minimized conflicts, and complete transparency.</p>
+                        <div class="hero-actions-row">
+                            <button class="btn btn-primary" id="run-solve-btn" onclick="triggerSolve()">
+                                <span class="btn-icon">▶️</span> Run Allocation
+                            </button>
+                            <button class="btn btn-secondary" onclick="openSettingsModal('general')">
+                                <span class="btn-icon">⚙️</span> Allocation Settings
+                            </button>
+                        </div>
+                    </div>
+                    <div class="hero-illustration">
+                        <!-- 3D Calendar and Shield Art -->
+                        <div class="shield-illustration-container">
+                            <svg viewBox="0 0 160 140" class="illustration-3d-svg">
+                                <defs>
+                                    <!-- Shield Gradient -->
+                                    <linearGradient id="shield3D" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#34d399" />
+                                        <stop offset="100%" stop-color="#059669" />
+                                    </linearGradient>
+                                    <!-- Calendar Gradient -->
+                                    <linearGradient id="cal3D" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#ffffff" />
+                                        <stop offset="100%" stop-color="#f1f5f9" />
+                                    </linearGradient>
+                                    <!-- Spheres Gradient (Royal Blue) -->
+                                    <linearGradient id="sphereBlue" x1="30%" y1="30%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#93c5fd" />
+                                        <stop offset="50%" stop-color="#3b82f6" />
+                                        <stop offset="100%" stop-color="#1d4ed8" />
+                                    </linearGradient>
+                                    <!-- Spheres Gradient (Teal) -->
+                                    <linearGradient id="sphereTeal" x1="30%" y1="30%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#a7f3d0" />
+                                        <stop offset="50%" stop-color="#0d9488" />
+                                        <stop offset="100%" stop-color="#115e59" />
+                                    </linearGradient>
+                                    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+                                        <feDropShadow dx="3" dy="10" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.15" />
+                                    </filter>
+                                </defs>
+                                
+                                <!-- Background Floating Spheres -->
+                                <circle cx="30" cy="90" r="8" fill="url(#sphereTeal)" opacity="0.6" filter="url(#softShadow)" />
+                                <circle cx="130" cy="30" r="14" fill="url(#sphereBlue)" opacity="0.8" filter="url(#softShadow)" />
+                                <circle cx="145" cy="95" r="7" fill="#cbd5e1" opacity="0.5" filter="url(#softShadow)" />
+                                
+                                <!-- 3D Calendar Sheet -->
+                                <g transform="translate(65, 20) rotate(8)" filter="url(#softShadow)">
+                                    <rect x="0" y="0" width="70" height="80" rx="8" fill="url(#cal3D)" />
+                                    <path d="M0 8 C0 3.6 3.6 0 8 0 L62 0 C66.4 0 70 3.6 70 8 L70 20 L0 20 Z" fill="#ef4444" />
+                                    <circle cx="15" cy="10" r="2.5" fill="#991b1b" />
+                                    <circle cx="35" cy="10" r="2.5" fill="#991b1b" />
+                                    <circle cx="55" cy="10" r="2.5" fill="#991b1b" />
+                                    <path d="M15 12 C15 5, 12 5, 12 10" stroke="#cbd5e1" stroke-width="2.5" stroke-linecap="round" fill="none" transform="translate(0, -7)" />
+                                    <path d="M35 12 C35 5, 32 5, 32 10" stroke="#cbd5e1" stroke-width="2.5" stroke-linecap="round" fill="none" transform="translate(0, -7)" />
+                                    <path d="M55 12 C55 5, 52 5, 52 10" stroke="#cbd5e1" stroke-width="2.5" stroke-linecap="round" fill="none" transform="translate(0, -7)" />
+                                    <rect x="10" y="32" width="12" height="8" rx="2" fill="#e2e8f0" />
+                                    <rect x="29" y="32" width="12" height="8" rx="2" fill="#e2e8f0" />
+                                    <rect x="48" y="32" width="12" height="8" rx="2" fill="#e2e8f0" />
+                                    <rect x="10" y="48" width="12" height="8" rx="2" fill="#e2e8f0" />
+                                    <rect x="29" y="48" width="12" height="8" rx="2" fill="#0f3ba2" opacity="0.8" />
+                                    <rect x="48" y="48" width="12" height="8" rx="2" fill="#e2e8f0" />
+                                    <rect x="10" y="64" width="12" height="8" rx="2" fill="#e2e8f0" />
+                                    <rect x="29" y="64" width="12" height="8" rx="2" fill="#e2e8f0" />
+                                    <rect x="48" y="64" width="12" height="8" rx="2" fill="#e2e8f0" />
+                                </g>
+
+                                <!-- Foreground Floating Spheres -->
+                                <circle cx="110" cy="115" r="9" fill="url(#sphereTeal)" filter="url(#softShadow)" />
+
+                                <!-- Floating 3D Checkmark Shield -->
+                                <g transform="translate(15, 35) rotate(-6)" filter="url(#softShadow)">
+                                    <path d="M0 10 L32 0 L64 10 L64 45 C64 68 32 80 32 80 C32 80 0 68 0 45 Z" fill="url(#shield3D)" />
+                                    <path d="M4 12 L32 3 L60 12 L60 44 C60 64 32 75 32 75 C32 75 4 64 4 44 Z" fill="#ffffff" opacity="0.15" />
+                                    <path d="M18 40 L28 50 L46 26" stroke="#ffffff" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+                                </g>
+                                
+                                <!-- Smallest Floating Sphere -->
+                                <circle cx="20" cy="20" r="5" fill="url(#sphereBlue)" filter="url(#softShadow)" />
+                            </svg>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Core Content Grid Layout -->
+                <div class="dashboard-grid">
+                    
+                    <!-- Left Grid Column -->
+                    <div class="grid-col-left">
+                        <!-- Stats Row -->
+                        <div class="stats-row">
+                            <div class="stat-card">
+                                <div class="stat-icon-wrapper blue-bg">
+                                    📅
+                                </div>
+                                <div class="stat-info-text">
+                                    <label>Total Sessions</label>
+                                    <h3 id="stat-sessions">142</h3>
+                                    <span class="stat-subtext" id="stat-sessions-sub">+12 this week</span>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon-wrapper green-bg">
+                                    👤
+                                </div>
+                                <div class="stat-info-text">
+                                    <label>Total Faculty</label>
+                                    <h3 id="stat-faculty">62</h3>
+                                    <span class="stat-subtext" id="stat-faculty-sub">Active</span>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon-wrapper purple-bg">
+                                    👥
+                                </div>
+                                <div class="stat-info-text">
+                                    <label>Total Allocations</label>
+                                    <h3 id="stat-allocations">1,248</h3>
+                                    <span class="stat-subtext" id="stat-allocations-sub">Assigned</span>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon-wrapper gold-bg">
+                                    🛡️
+                                </div>
+                                <div class="stat-info-text">
+                                    <label>Coverage</label>
+                                    <h3 id="stat-coverage">100%</h3>
+                                    <span class="stat-subtext" id="stat-coverage-sub">All sessions covered</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Timetable Visualization Card -->
+                        <div class="card timetable-card">
+                            <div class="card-header">
+                                <h3 class="card-title">Allocation Timetable</h3>
+                                <div class="card-header-actions">
+                                    <div class="timetable-nav">
+                                        <button class="time-nav-btn" onclick="shiftTimetableRange(-1)" style="display: none;">◀</button>
+                                        <span class="time-nav-label" id="timetable-range-label">May 20 – May 26, 2026</span>
+                                        <button class="time-nav-btn" onclick="shiftTimetableRange(1)" style="display: none;">▶</button>
+                                    </div>
+                                    <div class="toggle-group">
+                                        <button class="toggle-btn active" id="view-mode-week">Week</button>
+                                        <button class="toggle-btn" id="view-mode-day">Day</button>
+                                    </div>
+                                    <button class="btn btn-flat" onclick="toggleFiltersPanel()">
+                                        <span>⚙️</span> Filters
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Live Filter panel inside card -->
+                            <div class="filter-panel hidden" id="timetable-filters">
+                                <h4>Filter Allocations</h4>
+                                <div class="filter-grid">
+                                    <div class="filter-group">
+                                        <label for="filter-category">Category</label>
+                                        <select id="filter-category" onchange="filterScheduleGrid()">
+                                            <option value="all">All Categories</option>
+                                        </select>
+                                    </div>
+                                    <div class="filter-group">
+                                        <label for="filter-faculty">Faculty Member</label>
+                                        <select id="filter-faculty" onchange="filterScheduleGrid()">
+                                            <option value="all">All Faculty</option>
+                                        </select>
+                                    </div>
+                                    <div class="filter-group">
+                                        <label for="filter-day">Day</label>
+                                        <select id="filter-day" onchange="filterScheduleGrid()">
+                                            <option value="all">All Days</option>
+                                            <option value="1">Monday</option>
+                                            <option value="2">Tuesday</option>
+                                            <option value="3">Wednesday</option>
+                                            <option value="4">Thursday</option>
+                                            <option value="5">Friday</option>
+                                            <option value="6">Saturday</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="timetable-table-container">
+                                <table class="timetable-table" id="allocation-grid-table">
+                                    <thead>
+                                        <tr id="timetable-header-row">
+                                            <th class="time-col">Time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="timetable-body">
+                                        <!-- Dyn rows will be rendered here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <!-- Badges Legend -->
+                            <div class="legend-container">
+                                <div class="legend-item"><span class="legend-dot prof-bg"></span> Engineering</div>
+                                <div class="legend-item"><span class="legend-dot assoc-bg"></span> Science</div>
+                                <div class="legend-item"><span class="legend-dot asst-bg"></span> Mathematics</div>
+                                <div class="legend-item"><span class="legend-dot hum-bg"></span> Humanities</div>
+                                <div class="legend-item"><span class="legend-dot mgt-bg"></span> Management</div>
+                                <div class="legend-item"><span class="legend-dot oth-bg"></span> Others</div>
+                            </div>
+                        </div>
+
+                        <!-- Sparklines Metrics Row -->
+                        <div class="sparklines-row">
+                            <div class="sparkline-card">
+                                <div class="sparkline-meta">
+                                    <label>Average Duties per Faculty</label>
+                                    <div class="sparkline-value-group">
+                                        <h4 id="metric-avg-duties">6.2</h4>
+                                        <span class="badge-mini green-badge">Balanced</span>
+                                    </div>
+                                </div>
+                                <div class="sparkline-chart-container">
+                                    <svg viewBox="0 0 100 30" class="sparkline-svg" id="sparkline-avg">
+                                        <!-- filled in JS -->
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="sparkline-card">
+                                <div class="sparkline-meta">
+                                    <label>Highest Duties</label>
+                                    <div class="sparkline-value-group">
+                                        <h4 id="metric-max-duties">11</h4>
+                                        <span class="badge-mini red-badge" id="metric-max-name">Dr. R. Kapoor</span>
+                                    </div>
+                                </div>
+                                <div class="sparkline-chart-container">
+                                    <svg viewBox="0 0 100 30" class="sparkline-svg" id="sparkline-max">
+                                        <!-- filled in JS -->
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="sparkline-card">
+                                <div class="sparkline-meta">
+                                    <label>Lowest Duties</label>
+                                    <div class="sparkline-value-group">
+                                        <h4 id="metric-min-duties">2</h4>
+                                        <span class="badge-mini green-badge" id="metric-min-name">Prof. A. Nair</span>
+                                    </div>
+                                </div>
+                                <div class="sparkline-chart-container">
+                                    <svg viewBox="0 0 100 30" class="sparkline-svg" id="sparkline-min">
+                                        <!-- filled in JS -->
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="sparkline-card">
+                                <div class="sparkline-meta">
+                                    <label>Unassigned Sessions</label>
+                                    <div class="sparkline-value-group">
+                                        <h4 id="metric-unassigned">0</h4>
+                                        <span class="badge-mini green-badge" id="metric-unassigned-badge">All Clear</span>
+                                    </div>
+                                </div>
+                                <div class="stat-status-shield" id="unassigned-status-shield">
+                                    <svg viewBox="0 0 24 24" width="20" height="20">
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="#38a169" />
+                                        <path d="M9 11l2 2 4-4" stroke="#fff" stroke-width="2" fill="none" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Grid Column -->
+                    <div class="grid-col-right">
+                        
+                        <!-- Fairness Overview Card -->
+                        <div class="card fairness-card">
+                            <div class="card-header">
+                                <h3 class="card-title">Fairness Overview</h3>
+                                <span class="info-icon" title="Workload metrics calculations" style="cursor: pointer; color: var(--text-light); font-size: 13px;">ℹ️</span>
+                            </div>
+                            <div class="fairness-content">
+                                <div class="metric-progress-group">
+                                    <div class="metric-label-row">
+                                        <span class="metric-name">Jain's Fairness Index</span>
+                                        <span class="metric-badge green-badge" id="jains-index-status">Excellent Fairness</span>
+                                    </div>
+                                    <div class="metric-big-value" id="jains-index-val">0.95</div>
+                                    <div class="neumorphic-progress">
+                                        <div class="progress-bar green-bar" id="jains-index-bar" style="width: 95%"></div>
+                                    </div>
+                                </div>
+
+                                <div class="metric-progress-group">
+                                    <div class="metric-label-row">
+                                        <span class="metric-name">Gini Coefficient</span>
+                                        <span class="metric-badge green-badge" id="gini-coefficient-status">Very Low Inequality</span>
+                                    </div>
+                                    <div class="metric-big-value" id="gini-coefficient-val">0.07</div>
+                                    <div class="neumorphic-progress">
+                                        <div class="progress-bar green-bar" id="gini-coefficient-bar" style="width: 93%"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Visual Scale 3D SVG -->
+                                <div class="scale-visual-container">
+                                    <svg viewBox="0 0 120 100" class="scale-svg">
+                                        <defs>
+                                            <linearGradient id="baseGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                                <stop offset="0%" stop-color="#ffffff" />
+                                                <stop offset="100%" stop-color="#e2e8f0" />
+                                            </linearGradient>
+                                            <linearGradient id="standGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                                <stop offset="0%" stop-color="#cbd5e1" />
+                                                <stop offset="50%" stop-color="#94a3b8" />
+                                                <stop offset="100%" stop-color="#475569" />
+                                            </linearGradient>
+                                            <linearGradient id="bowlGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                <stop offset="0%" stop-color="#ffffff" />
+                                                <stop offset="100%" stop-color="#cbd5e1" />
+                                            </linearGradient>
+                                        </defs>
+                                        <!-- Pedestal Base -->
+                                        <rect x="35" y="86" width="50" height="6" rx="2" fill="url(#baseGrad)" stroke="#cbd5e1" stroke-width="0.5" />
+                                        <rect x="42" y="80" width="36" height="6" rx="1.5" fill="url(#baseGrad)" stroke="#cbd5e1" stroke-width="0.5" />
+                                        <!-- Vertical Stand -->
+                                        <rect x="57" y="28" width="6" height="52" rx="1" fill="url(#standGrad)" />
+                                        <!-- Center Pivot Pin -->
+                                        <circle cx="60" cy="28" r="4.5" fill="#334155" />
+                                        
+                                        <!-- Crossbar assembly -->
+                                        <g id="scale-crossbar">
+                                            <!-- Horizontal Crossbar -->
+                                            <line x1="20" y1="28" x2="100" y2="28" stroke="#475569" stroke-width="3.5" stroke-linecap="round" />
+                                            <!-- Left hook/loop -->
+                                            <circle cx="20" cy="28" r="2" fill="#334155" />
+                                            <!-- Right hook/loop -->
+                                            <circle cx="100" cy="28" r="2" fill="#334155" />
+                                            
+                                            <!-- Left Hanging Bowl -->
+                                            <g id="scale-left-bowl-assembly">
+                                                <line x1="20" y1="28" x2="9" y2="54" stroke="#94a3b8" stroke-width="0.8" id="scale-left-wire" />
+                                                <line x1="20" y1="28" x2="31" y2="54" stroke="#94a3b8" stroke-width="0.8" />
+                                                <path d="M8 54 C8 65 32 65 32 54 Z" fill="url(#bowlGrad)" stroke="#94a3b8" stroke-width="0.5" id="scale-left-bowl" />
+                                            </g>
+                                            
+                                            <!-- Right Hanging Bowl -->
+                                            <g id="scale-right-bowl-assembly">
+                                                <line x1="100" y1="28" x2="89" y2="54" stroke="#94a3b8" stroke-width="0.8" id="scale-right-wire" />
+                                                <line x1="100" y1="28" x2="111" y2="54" stroke="#94a3b8" stroke-width="0.8" />
+                                                <path d="M88 54 C88 65 112 65 112 54 Z" fill="url(#bowlGrad)" stroke="#94a3b8" stroke-width="0.5" id="scale-right-bowl" />
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Conflict Insights Card -->
+                        <div class="card conflict-card" id="conflict-insights-card">
+                            <div class="card-header">
+                                <h3 class="card-title">Conflict Insights</h3>
+                                <span class="badge red-badge" id="conflict-count-badge">4 Conflicts</span>
+                            </div>
+                            <div class="conflict-content" id="conflicts-list-container">
+                                <!-- filled dynamically in JS -->
+                            </div>
+                            <button class="btn btn-secondary w-full mt-4" onclick="scrollToElement('allocation-grid-table')" style="justify-content: center; font-size: 11.5px; padding: 8px;">
+                                View Allocation Schedule
+                            </button>
+                        </div>
+
+                        <!-- Workload Distribution Card -->
+                        <div class="card workload-dist-card">
+                            <div class="card-header">
+                                <h3 class="card-title">Workload Distribution</h3>
+                            </div>
+                            <div class="workload-dist-content">
+                                <div class="chart-flex">
+                                    <div class="donut-chart-container">
+                                        <svg viewBox="0 0 100 100" class="donut-chart-svg">
+                                            <circle cx="50" cy="50" r="38" fill="transparent" stroke="#f1f5f9" stroke-width="10" />
+                                            <!-- Color rings dynamically updated via dasharray in JS -->
+                                            <circle cx="50" cy="50" r="38" fill="transparent" stroke="#10b981" stroke-width="10" 
+                                                    stroke-dasharray="238.76" stroke-dashoffset="0" id="donut-ring-green" />
+                                            <circle cx="50" cy="50" r="38" fill="transparent" stroke="#3b82f6" stroke-width="10" 
+                                                    stroke-dasharray="238.76" stroke-dashoffset="238.76" id="donut-ring-blue" />
+                                            <circle cx="50" cy="50" r="38" fill="transparent" stroke="#f59e0b" stroke-width="10" 
+                                                    stroke-dasharray="238.76" stroke-dashoffset="238.76" id="donut-ring-orange" />
+                                            <circle cx="50" cy="50" r="38" fill="transparent" stroke="#ef4444" stroke-width="10" 
+                                                    stroke-dasharray="238.76" stroke-dashoffset="238.76" id="donut-ring-red" />
+                                        </svg>
+                                        <div class="donut-inner-text">
+                                            <span class="donut-number" id="donut-total-faculty">62</span>
+                                            <span class="donut-label">Faculty</span>
+                                        </div>
+                                    </div>
+                                    <div class="chart-legend-grid">
+                                        <div class="chart-legend-row">
+                                            <span class="legend-color-indicator green-bg" style="background-color: #10b981;"></span>
+                                            <span class="legend-text">Light (0-3)</span>
+                                            <span class="legend-percent" id="pct-light">18%</span>
+                                        </div>
+                                        <div class="chart-legend-row">
+                                            <span class="legend-color-indicator blue-bg" style="background-color: #3b82f6;"></span>
+                                            <span class="legend-text">Moderate (4-6)</span>
+                                            <span class="legend-percent" id="pct-moderate">44%</span>
+                                        </div>
+                                        <div class="chart-legend-row">
+                                            <span class="legend-color-indicator orange-bg" style="background-color: #f59e0b;"></span>
+                                            <span class="legend-text">High (7-9)</span>
+                                            <span class="legend-percent" id="pct-high">28%</span>
+                                        </div>
+                                        <div class="chart-legend-row">
+                                            <span class="legend-color-indicator red-bg" style="background-color: #ef4444;"></span>
+                                            <span class="legend-text">Very High (10+)</span>
+                                            <span class="legend-percent" id="pct-veryhigh">10%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- History Impact Analysis Section -->
+                <section class="card history-impact-card">
+                    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <h3 class="card-title">History & Load-Balancing Impact Analysis</h3>
+                            <span class="badge blue-badge" id="history-impact-title-badge">History active</span>
+                        </div>
+                        <button class="btn btn-secondary btn-small" id="reset-history-btn" onclick="resetHistoryData()" style="padding: 6px 12px; font-size: 11.5px; display: flex; align-items: center; gap: 6px; cursor: pointer;">
+                            <span>🔄</span> Reset History
+                        </button>
+                    </div>
+                    <p class="history-summary-text" id="history-impact-summary-text">
+                        The solver is currently analyzing the active faculty historical records to ensure workload compensation.
+                    </p>
+                    <div class="history-table-container">
+                        <table class="history-table">
+                            <thead>
+                                <tr>
+                                    <th>Faculty ID</th>
+                                    <th>Name</th>
+                                    <th>Category</th>
+                                    <th>Previous Imbalance (hrs)</th>
+                                    <th>Current Duties</th>
+                                    <th>Current Hours</th>
+                                    <th>Workload Change</th>
+                                    <th>New Imbalance</th>
+                                    <th>Load-Balancing Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="history-impact-tbody">
+                                <!-- Dynamic rows filled in JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- CONFIGURATION EDITING MODAL -->
+    <div class="modal-backdrop hidden" id="settings-modal">
+        <div class="modal-window">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-window-title">System Settings</h3>
+                <button class="close-modal-btn" onclick="closeSettingsModal()">✕</button>
+            </div>
+            
+            <div class="modal-tabs">
+                <button class="modal-tab-btn active" id="tab-btn-general" onclick="switchModalTab('general')">General Info</button>
+                <button class="modal-tab-btn" id="tab-btn-faculty" onclick="switchModalTab('faculty')">Faculty</button>
+                <button class="modal-tab-btn" id="tab-btn-sessions" onclick="switchModalTab('sessions')">Sessions</button>
+                <button class="modal-tab-btn" id="tab-btn-json" onclick="switchModalTab('json')">Direct JSON Editor</button>
+            </div>
+
+            <div class="modal-body">
+                
+                <!-- TAB 1: General settings -->
+                <div class="modal-tab-pane" id="pane-general">
+                    <form id="form-general-settings" onsubmit="saveGeneralSettings(event)">
+                        <div class="form-row">
+                            <div class="form-group col-6">
+                                <label for="setting-exam-type">Exam Period Type</label>
+                                <select id="setting-exam-type">
+                                    <option value="midsem">Mid-Semester Exam (2.0 hrs / PG class checks active)</option>
+                                    <option value="endsem">End-Semester Exam (3.0 hrs / standard)</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-6">
+                                <label for="setting-ratio-mode">Category Workload Ratio Weight Mode</label>
+                                <select id="setting-ratio-mode">
+                                    <option value="target_load_scaling">Target Load Scaling (proportional targets scaled to fit demand)</option>
+                                    <option value="raw_weights">Raw Weights (treat ratio weights directly as target hours)</option>
+                                    <option value="hard_category_limits">Hard Category Limits (treat scaled targets as hard limits)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-6">
+                                <label for="setting-exam-start-date">Exam Week Start Date (Monday)</label>
+                                <input type="date" id="setting-exam-start-date">
+                            </div>
+                        </div>
+
+                        <div class="category-weights-section">
+                            <h4>Category Ratios Weights</h4>
+                            <div id="category-weights-list">
+                                <!-- filled by JS -->
+                            </div>
+                            <button type="button" class="btn btn-secondary btn-small" onclick="addCategoryRow()" style="margin-top: 10px;">+ Add Category</button>
+                        </div>
+
+                        <div class="category-weights-section">
+                            <h4>Bulk Shift Requirements (applies to ALL 6 days at once)</h4>
+                            <div class="form-row">
+                                <div class="form-group col-6">
+                                    <label for="bulk-morning-req">Morning Shift — Required Invigilators (all days)</label>
+                                    <input type="number" id="bulk-morning-req" min="0" placeholder="e.g. 32">
+                                </div>
+                                <div class="form-group col-6">
+                                    <label for="bulk-afternoon-req">Afternoon Shift — Required Invigilators (all days)</label>
+                                    <input type="number" id="bulk-afternoon-req" min="0" placeholder="e.g. 30">
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-primary btn-small" onclick="applyBulkShiftRequirements()">Apply to All Days &amp; Re-solve</button>
+                        </div>
+
+                        <div class="form-actions mt-6">
+                            <button type="submit" class="btn btn-primary">Save General Settings</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- TAB 2: Faculty list -->
+                <div class="modal-tab-pane hidden" id="pane-faculty">
+                    <div class="list-management-layout">
+                        <div class="list-sidebar">
+                            <div class="list-actions">
+                                <input type="text" id="faculty-list-search" placeholder="Search Faculty..." oninput="renderFacultyTabList()">
+                                <button class="btn btn-primary btn-small" onclick="createNewFacultyForm()">+ Add New</button>
+                            </div>
+                            <div class="list-items-container" id="faculty-items-list">
+                                <!-- Dynamic items -->
+                            </div>
+                        </div>
+                        <div class="list-detail-panel" id="faculty-detail-panel">
+                            <div class="empty-state-text">Select a faculty member from the list to view or edit details.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: Sessions config -->
+                <div class="modal-tab-pane hidden" id="pane-sessions">
+                    <div class="list-management-layout">
+                        <div class="list-sidebar">
+                            <div class="list-actions">
+                                <input type="text" id="sessions-list-search" placeholder="Search Sessions..." oninput="renderSessionsTabList()">
+                                <button class="btn btn-primary btn-small" onclick="createNewSessionForm()">+ Add New</button>
+                            </div>
+                            <div class="list-items-container" id="sessions-items-list">
+                                <!-- Dynamic items -->
+                            </div>
+                        </div>
+                        <div class="list-detail-panel" id="sessions-detail-panel">
+                            <div class="empty-state-text">Select an exam session from the list to view or edit details.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 4: Direct JSON -->
+                <div class="modal-tab-pane hidden" id="pane-json">
+                    <p class="description-text" style="font-size: 12px; color: var(--text-secondary); margin-bottom: 8px;">Directly inspect and modify the raw configuration JSON structure sent to the Python backend.</p>
+                    <textarea id="raw-json-textarea" class="raw-json-editor" spellcheck="false"></textarea>
+                    <div class="form-actions mt-4" style="display: flex; gap: 10px;">
+                        <button class="btn btn-primary" onclick="saveRawJson()">Apply & Save Raw JSON</button>
+                        <button class="btn btn-secondary" onclick="loadConfigFromBackend()">Reset from Server</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Dynamic Notification Toast -->
+    <div class="toast-notification hidden" id="app-toast">
+        <span class="toast-icon">ℹ️</span>
+        <span class="toast-message" id="toast-msg">Solving system...</span>
+    </div>
+
+    <!-- Help Modal Dialog -->
+    <div class="modal-backdrop hidden" id="help-modal">
+        <div class="modal-window help-modal-window">
+            <div class="modal-header">
+                <h3 class="modal-title">Help & Info</h3>
+                <button class="close-modal-btn" onclick="closeHelpModal()">✕</button>
+            </div>
+            <div class="modal-body markdown-style">
+                <h3>About BIT MESRA Allocation Engine</h3>
+                <p>This is a modern light-mode interface powered by a hybrid **Greedy**, **Hill-Climbing Local Search**, and **Branch-and-Bound** scheduler written in Python.</p>
+                
+                <h4>How to allocate invigilation duties:</h4>
+                <ol>
+                    <li>Click **Run Allocation** to request a schedule.</li>
+                    <li>Inspect workload indicators (e.g. Jain's Index).</li>
+                    <li>Configure staff lists and availability constraints by opening the **Faculty List** or **Sessions Config** panels.</li>
+                    <li>Click **Export Config** to download the active dataset.</li>
+                </ol>
+                
+                <h4>Ratio Modes:</h4>
+                <ul>
+                    <li><strong>Target Load Scaling:</strong> Targets are scaled proportionally to meet invigilation hours demands.</li>
+                    <li><strong>Raw Weights:</strong> Ratio weights represent target hours directly.</li>
+                    <li><strong>Hard Category Limits:</strong> Targets are treated as hard maximum bounds.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Faculty Weekly Report Modal -->
+    <div class="modal-backdrop hidden" id="faculty-report-modal">
+        <div class="modal-window help-modal-window">
+            <div class="modal-header">
+                <h3 class="modal-title" id="faculty-report-title">Faculty Schedule Report</h3>
+                <button class="close-modal-btn" onclick="closeFacultyReportModal()">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="faculty-report-meta" style="margin-bottom: 15px; font-size: 14px; color: var(--text-secondary);">
+                    <p style="margin: 4px 0;"><strong>Category:</strong> <span id="fac-rep-category">-</span></p>
+                    <p style="margin: 4px 0;"><strong>Assigned Hours:</strong> <span id="fac-rep-hours">-</span> | <strong>Target Load:</strong> <span id="fac-rep-target">-</span></p>
+                    <p style="margin: 4px 0;"><strong>Cumulative Imbalance:</strong> <span id="fac-rep-imbalance">-</span></p>
+                </div>
+                <table class="history-table" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>Day</th>
+                            <th>Shift</th>
+                            <th>Session Label</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+                    <tbody id="faculty-report-tbody">
+                        <!-- Filled in JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

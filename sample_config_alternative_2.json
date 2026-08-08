@@ -1,0 +1,47 @@
+{
+    "exam_type": "endsem",
+    "category_ratio_mode": "target_load_scaling",
+    "categories": [
+        {"name": "Professor", "ratio_weight": 2.0},
+        {"name": "Associate Professor", "ratio_weight": 3.0},
+        {"name": "Assistant Professor", "ratio_weight": 4.0}
+    ],
+    "faculty_list": [
+        {"id": "P1", "name": "Prof. A. K. Sen", "category": "Professor", "pg_timetable_blocks": [], "availability_overrides": []},
+        {"id": "P2", "name": "Prof. B. C. Roy", "category": "Professor", "pg_timetable_blocks": [], "availability_overrides": []},
+        {"id": "P3", "name": "Prof. M. N. Saha", "category": "Professor", "pg_timetable_blocks": [], "availability_overrides": ["D61"]},
+        {"id": "AS1", "name": "Assoc Prof. D. Gupta", "category": "Associate Professor", "pg_timetable_blocks": [], "availability_overrides": []},
+        {"id": "AS2", "name": "Assoc Prof. R. Sharma", "category": "Associate Professor", "pg_timetable_blocks": [], "availability_overrides": ["D31"]},
+        {"id": "AS3", "name": "Assoc Prof. S. Krishnan", "category": "Associate Professor", "pg_timetable_blocks": [], "availability_overrides": []},
+        {"id": "AS4", "name": "Assoc Prof. A. Prasad", "category": "Associate Professor", "pg_timetable_blocks": [], "availability_overrides": []},
+        {"id": "AP1", "name": "Asst Prof. T. Das", "category": "Assistant Professor", "pg_timetable_blocks": [], "availability_overrides": []},
+        {"id": "AP2", "name": "Asst Prof. K. Patel", "category": "Assistant Professor", "pg_timetable_blocks": [], "availability_overrides": ["D12"]},
+        {"id": "AP3", "name": "Asst Prof. V. Reddy", "category": "Assistant Professor", "pg_timetable_blocks": [], "availability_overrides": []},
+        {"id": "AP4", "name": "Asst Prof. J. Singh", "category": "Assistant Professor", "pg_timetable_blocks": [], "availability_overrides": []},
+        {"id": "AP5", "name": "Asst Prof. N. Kumar", "category": "Assistant Professor", "pg_timetable_blocks": [], "availability_overrides": []}
+    ],
+    "sessions": [
+        {"id": "D11", "day": 1, "session_num": 1, "label": "Monday FN", "required_invigilators": 4, "day_weight": 1.0, "duration_hours": 3.0},
+        {"id": "D12", "day": 1, "session_num": 2, "label": "Monday AN", "required_invigilators": 3, "day_weight": 1.0, "duration_hours": 3.0},
+        {"id": "D21", "day": 2, "session_num": 1, "label": "Tuesday FN", "required_invigilators": 3, "day_weight": 1.0, "duration_hours": 3.0},
+        {"id": "D22", "day": 2, "session_num": 2, "label": "Tuesday AN", "required_invigilators": 3, "day_weight": 1.0, "duration_hours": 3.0},
+        {"id": "D31", "day": 3, "session_num": 1, "label": "Wednesday FN", "required_invigilators": 4, "day_weight": 1.0, "duration_hours": 3.0},
+        {"id": "D32", "day": 3, "session_num": 2, "label": "Wednesday AN", "required_invigilators": 2, "day_weight": 1.0, "duration_hours": 3.0},
+        {"id": "D61", "day": 6, "session_num": 1, "label": "Saturday FN", "required_invigilators": 3, "day_weight": 1.5, "duration_hours": 3.0},
+        {"id": "D62", "day": 6, "session_num": 2, "label": "Saturday AN", "required_invigilators": 2, "day_weight": 1.5, "duration_hours": 3.0}
+    ],
+    "history": [
+        {"faculty_id": "P1", "previous_imbalance": 4.5},
+        {"faculty_id": "P2", "previous_imbalance": -6.0},
+        {"faculty_id": "P3", "previous_imbalance": 1.5},
+        {"faculty_id": "AS1", "previous_imbalance": -3.0},
+        {"faculty_id": "AS2", "previous_imbalance": 3.0},
+        {"faculty_id": "AS3", "previous_imbalance": 0.0},
+        {"faculty_id": "AS4", "previous_imbalance": -1.5},
+        {"faculty_id": "AP1", "previous_imbalance": -9.0},
+        {"faculty_id": "AP2", "previous_imbalance": 6.0},
+        {"faculty_id": "AP3", "previous_imbalance": -3.0},
+        {"faculty_id": "AP4", "previous_imbalance": 3.0},
+        {"faculty_id": "AP5", "previous_imbalance": 0.0}
+    ]
+}

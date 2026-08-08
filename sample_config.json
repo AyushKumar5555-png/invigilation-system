@@ -1,0 +1,695 @@
+{
+    "exam_type": "endsem",
+    "category_ratio_mode": "target_load_scaling",
+    "categories": [
+        {
+            "name": "Professor",
+            "ratio_weight": 1
+        },
+        {
+            "name": "Associate Professor",
+            "ratio_weight": 2
+        },
+        {
+            "name": "Assistant Professor",
+            "ratio_weight": 3
+        },
+        {
+            "name": "New Category",
+            "ratio_weight": 0
+        }
+    ],
+    "faculty_list": [
+        {
+            "id": "02387",
+            "name": "Dr. (Mrs). Vandana Bhattacharjee",
+            "category": "Professor",
+            "phone": "9431596469",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Professor"
+        },
+        {
+            "id": "02236",
+            "name": "Dr. Sandip Dutta",
+            "category": "Professor",
+            "phone": "9431939630",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Professor"
+        },
+        {
+            "id": "02694",
+            "name": "Dr. Abhijit Mustafi",
+            "category": "Professor",
+            "phone": "9431382747",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Professor"
+        },
+        {
+            "id": "02238",
+            "name": "Dr. Vijay Kumar Jha",
+            "category": "Professor",
+            "phone": "9431345301",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Professor"
+        },
+        {
+            "id": "02076",
+            "name": "Dr. Dheeresh Kumar Mallick",
+            "category": "Associate Professor",
+            "phone": "8987597281",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Associate Professor"
+        },
+        {
+            "id": "02665",
+            "name": "Dr. K. Sridhar Patnaik",
+            "category": "Associate Professor",
+            "phone": "9431187489",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Associate Professor"
+        },
+        {
+            "id": "02447",
+            "name": "Dr. Kumar Rajnish",
+            "category": "Associate Professor",
+            "phone": "9546151005",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Associate Professor"
+        },
+        {
+            "id": "02121",
+            "name": "Dr. Bikash Kanti Sarkar",
+            "category": "Associate Professor",
+            "phone": "9431382752",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Associate Professor"
+        },
+        {
+            "id": "08926",
+            "name": "Dr. (Mrs.) Sanchita Paul",
+            "category": "Associate Professor",
+            "phone": "8987479535",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Associate Professor"
+        },
+        {
+            "id": "09183",
+            "name": "Dr. Sudip Kumar Sahana",
+            "category": "Associate Professor",
+            "phone": "9470131644",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Associate Professor"
+        },
+        {
+            "id": "02164",
+            "name": "Dr. Indrajit Mukherjee",
+            "category": "Associate Professor",
+            "phone": "9431182820",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Associate Professor"
+        },
+        {
+            "id": "02471",
+            "name": "Dr. (Mrs.) Itu Snigdh",
+            "category": "Associate Professor",
+            "phone": "9431584043",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Associate Professor"
+        },
+        {
+            "id": "08804",
+            "name": "Dr. Kishore Kumar Senapati",
+            "category": "Associate Professor",
+            "phone": "9431768348",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Associate Professor"
+        },
+        {
+            "id": "09315",
+            "name": "Dr. Shashank Pushkar",
+            "category": "Associate Professor",
+            "phone": "9470141130",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Associate Professor"
+        },
+        {
+            "id": "10287",
+            "name": "Dr. Subrajeet Mohapatra",
+            "category": "Associate Professor",
+            "phone": "8809202074",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Associate Professor"
+        },
+        {
+            "id": "11018",
+            "name": "Dr. Chandrashekhar Lavania",
+            "category": "Associate Professor",
+            "phone": "9931314508",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Associate Professor"
+        },
+        {
+            "id": "00041",
+            "name": "Dr. Suvendu Kanungo",
+            "category": "Assistant Professor",
+            "phone": "9450610805",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Assistant Professor"
+        },
+        {
+            "id": "02440",
+            "name": "Dr. Satya Prakash Singh",
+            "category": "Assistant Professor",
+            "phone": "9873119229",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Assistant Professor"
+        },
+        {
+            "id": "09054",
+            "name": "Dr. (Mrs.) Shruti Garg",
+            "category": "Assistant Professor",
+            "phone": "9430730791",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Assistant Professor"
+        },
+        {
+            "id": "08927",
+            "name": "Dr. (Mrs.) Amritanjali",
+            "category": "Assistant Professor",
+            "phone": "9631769117",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Assistant Professor"
+        },
+        {
+            "id": "09413",
+            "name": "Dr. (Mrs.) Shamama Anwar",
+            "category": "Assistant Professor",
+            "phone": "9431103880",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Assistant Professor"
+        },
+        {
+            "id": "08745",
+            "name": "Dr. Anup Kumar Keshri",
+            "category": "Assistant Professor",
+            "phone": "9431596818",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Assistant Professor"
+        },
+        {
+            "id": "02660",
+            "name": "Dr. Ritesh Jha",
+            "category": "Assistant Professor",
+            "phone": "9973110854",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Assistant Professor"
+        },
+        {
+            "id": "02664",
+            "name": "Prof. Indradeo Ram",
+            "category": "Assistant Professor",
+            "phone": "8002245102",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Assistant Professor"
+        },
+        {
+            "id": "01722",
+            "name": "Dr. (Mrs) Akriti Nigam",
+            "category": "Assistant Professor",
+            "phone": "7070161838",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Assistant Professor"
+        },
+        {
+            "id": "02395",
+            "name": "Dr. Satish Chander",
+            "category": "Assistant Professor",
+            "phone": "8102243265",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Assistant Professor"
+        },
+        {
+            "id": "09013",
+            "name": "Dr. (Mrs.) Debjani Mustafi",
+            "category": "Assistant Professor",
+            "phone": "9955450060",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Assistant Professor"
+        },
+        {
+            "id": "10284",
+            "name": "Dr. Niraj Kumar Singh",
+            "category": "Assistant Professor",
+            "phone": "9102316332",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Assistant Professor"
+        },
+        {
+            "id": "09999",
+            "name": "Prof. Kalyan Samanta",
+            "category": "Assistant Professor",
+            "phone": "8986804721",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Assistant Professor"
+        },
+        {
+            "id": "10294",
+            "name": "Dr. Sumit Srivastava",
+            "category": "Assistant Professor",
+            "phone": "8986758348",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Assistant Professor"
+        },
+        {
+            "id": "00060",
+            "name": "Prof. Bidyut  K. Chanda",
+            "category": "Assistant Professor",
+            "phone": "9431382750",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Assistant Professor"
+        },
+        {
+            "id": "10841",
+            "name": "Dr. Jit Mukherjee",
+            "category": "Assistant Professor",
+            "phone": "9474319800",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Assistant Professor"
+        },
+        {
+            "id": "10845",
+            "name": "Dr. Prashant Pranav",
+            "category": "Assistant Professor",
+            "phone": "9955001448",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Assistant Professor"
+        },
+        {
+            "id": "10881",
+            "name": "Dr Supreeti Kamilya",
+            "category": "Assistant Professor",
+            "phone": "8116813561",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Assistant Professor"
+        },
+        {
+            "id": "10888",
+            "name": "Dr. Richa",
+            "category": "Assistant Professor",
+            "phone": "8285340125",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Assistant Professor"
+        },
+        {
+            "id": "10891",
+            "name": "Dr. Md Shah Fahad",
+            "category": "Assistant Professor",
+            "phone": "9973766537",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Assistant Professor"
+        },
+        {
+            "id": "10894",
+            "name": "Dr. Jamimamul Bakas",
+            "category": "Assistant Professor",
+            "phone": "9064008165",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Assistant Professor"
+        },
+        {
+            "id": "10931",
+            "name": "Dr. Saikat Chakraborty",
+            "category": "Assistant Professor",
+            "phone": "9937684296",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Assistant Professor"
+        },
+        {
+            "id": "10934",
+            "name": "Dr. Sandip Ghosal",
+            "category": "Assistant Professor",
+            "phone": "8975285340",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Assistant Professor"
+        },
+        {
+            "id": "10950",
+            "name": "Dr. Komal Naaz",
+            "category": "Assistant Professor",
+            "phone": "7643976474",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Assistant Professor"
+        },
+        {
+            "id": "10957",
+            "name": "Dr. Ravishankar Mehta",
+            "category": "Assistant Professor",
+            "phone": "9749434897",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Assistant Professor"
+        },
+        {
+            "id": "10967",
+            "name": "Dr. Lopamudra Hota",
+            "category": "Assistant Professor",
+            "phone": "8108836004",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Assistant Professor"
+        },
+        {
+            "id": "10974",
+            "name": "Dr. Rathindra Nath Dutta",
+            "category": "Assistant Professor",
+            "phone": "7003681942",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Assistant Professor"
+        },
+        {
+            "id": "10972",
+            "name": "Dr. Monu Bhagat",
+            "category": "Assistant Professor",
+            "phone": "8240162514",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Assistant Professor"
+        },
+        {
+            "id": "11023",
+            "name": "Dr. Kanchan Jha",
+            "category": "Assistant Professor",
+            "phone": "8351968798",
+            "pg_timetable_blocks": [],
+            "availability_overrides": [],
+            "category_name": "Assistant Professor"
+        }
+    ],
+    "sessions": [
+        {
+            "id": "D11",
+            "day": 1,
+            "session_num": 1,
+            "label": "Monday FN",
+            "required_invigilators": 37,
+            "day_weight": 1
+        },
+        {
+            "id": "D12",
+            "day": 1,
+            "session_num": 2,
+            "label": "Monday AN",
+            "required_invigilators": 30
+        },
+        {
+            "id": "D21",
+            "day": 2,
+            "session_num": 1,
+            "label": "Tuesday FN",
+            "required_invigilators": 32
+        },
+        {
+            "id": "D22",
+            "day": 2,
+            "session_num": 2,
+            "label": "Tuesday AN",
+            "required_invigilators": 30
+        },
+        {
+            "id": "D31",
+            "day": 3,
+            "session_num": 1,
+            "label": "Wednesday FN",
+            "required_invigilators": 32
+        },
+        {
+            "id": "D32",
+            "day": 3,
+            "session_num": 2,
+            "required_invigilators": 30
+        },
+        {
+            "id": "D41",
+            "day": 4,
+            "session_num": 1,
+            "label": "Thursday FN",
+            "required_invigilators": 32
+        },
+        {
+            "id": "D42",
+            "day": 4,
+            "session_num": 2,
+            "required_invigilators": 30
+        },
+        {
+            "id": "D51",
+            "day": 5,
+            "session_num": 1,
+            "label": "Friday FN",
+            "required_invigilators": 32
+        },
+        {
+            "id": "D52",
+            "day": 5,
+            "session_num": 2,
+            "required_invigilators": 30
+        },
+        {
+            "id": "D61",
+            "day": 6,
+            "session_num": 1,
+            "required_invigilators": 30,
+            "day_weight": 1.5
+        },
+        {
+            "id": "D62",
+            "day": 6,
+            "session_num": 2,
+            "required_invigilators": 30,
+            "day_weight": 1.5
+        }
+    ],
+    "history": [
+        {
+            "faculty_id": "02387",
+            "previous_imbalance": 0.09619565217391468
+        },
+        {
+            "faculty_id": "02236",
+            "previous_imbalance": 0.09619565217391468
+        },
+        {
+            "faculty_id": "02694",
+            "previous_imbalance": 0.09619565217391468
+        },
+        {
+            "faculty_id": "02238",
+            "previous_imbalance": 0.09619565217391468
+        },
+        {
+            "faculty_id": "02076",
+            "previous_imbalance": -0.05135869565216922
+        },
+        {
+            "faculty_id": "02665",
+            "previous_imbalance": -0.05135869565216922
+        },
+        {
+            "faculty_id": "02447",
+            "previous_imbalance": -0.05135869565216922
+        },
+        {
+            "faculty_id": "02121",
+            "previous_imbalance": -0.05135869565216922
+        },
+        {
+            "faculty_id": "08926",
+            "previous_imbalance": -0.05135869565216922
+        },
+        {
+            "faculty_id": "09183",
+            "previous_imbalance": -0.05135869565216922
+        },
+        {
+            "faculty_id": "02164",
+            "previous_imbalance": -0.05135869565216922
+        },
+        {
+            "faculty_id": "02471",
+            "previous_imbalance": -0.05135869565216922
+        },
+        {
+            "faculty_id": "08804",
+            "previous_imbalance": -0.05135869565216922
+        },
+        {
+            "faculty_id": "09315",
+            "previous_imbalance": -0.05135869565216922
+        },
+        {
+            "faculty_id": "10287",
+            "previous_imbalance": -0.05135869565216922
+        },
+        {
+            "faculty_id": "11018",
+            "previous_imbalance": -0.05135869565216922
+        },
+        {
+            "faculty_id": "00041",
+            "previous_imbalance": -0.19891304347825667
+        },
+        {
+            "faculty_id": "02440",
+            "previous_imbalance": -0.19891304347825667
+        },
+        {
+            "faculty_id": "09054",
+            "previous_imbalance": -0.19891304347825312
+        },
+        {
+            "faculty_id": "08927",
+            "previous_imbalance": -0.19891304347825667
+        },
+        {
+            "faculty_id": "09413",
+            "previous_imbalance": -0.19891304347825667
+        },
+        {
+            "faculty_id": "08745",
+            "previous_imbalance": -0.19891304347825667
+        },
+        {
+            "faculty_id": "02660",
+            "previous_imbalance": -0.19891304347825667
+        },
+        {
+            "faculty_id": "02664",
+            "previous_imbalance": 1.3010869565217469
+        },
+        {
+            "faculty_id": "01722",
+            "previous_imbalance": -0.19891304347825667
+        },
+        {
+            "faculty_id": "02395",
+            "previous_imbalance": -0.19891304347825312
+        },
+        {
+            "faculty_id": "09013",
+            "previous_imbalance": -0.19891304347825667
+        },
+        {
+            "faculty_id": "10284",
+            "previous_imbalance": -0.19891304347825667
+        },
+        {
+            "faculty_id": "09999",
+            "previous_imbalance": -0.19891304347825667
+        },
+        {
+            "faculty_id": "10294",
+            "previous_imbalance": -0.19891304347825667
+        },
+        {
+            "faculty_id": "00060",
+            "previous_imbalance": -0.19891304347825667
+        },
+        {
+            "faculty_id": "10841",
+            "previous_imbalance": -0.19891304347825667
+        },
+        {
+            "faculty_id": "10845",
+            "previous_imbalance": -0.19891304347825667
+        },
+        {
+            "faculty_id": "10881",
+            "previous_imbalance": -0.19891304347825667
+        },
+        {
+            "faculty_id": "10888",
+            "previous_imbalance": -0.19891304347825667
+        },
+        {
+            "faculty_id": "10891",
+            "previous_imbalance": -0.19891304347825667
+        },
+        {
+            "faculty_id": "10894",
+            "previous_imbalance": -0.19891304347825667
+        },
+        {
+            "faculty_id": "10931",
+            "previous_imbalance": -0.19891304347825667
+        },
+        {
+            "faculty_id": "10934",
+            "previous_imbalance": -0.19891304347825667
+        },
+        {
+            "faculty_id": "10950",
+            "previous_imbalance": 1.3010869565217469
+        },
+        {
+            "faculty_id": "10957",
+            "previous_imbalance": 1.3010869565217469
+        },
+        {
+            "faculty_id": "10967",
+            "previous_imbalance": -0.19891304347825667
+        },
+        {
+            "faculty_id": "10974",
+            "previous_imbalance": 1.3010869565217469
+        },
+        {
+            "faculty_id": "10972",
+            "previous_imbalance": -0.19891304347825667
+        },
+        {
+            "faculty_id": "11023",
+            "previous_imbalance": -0.19891304347825312
+        }
+    ]
+}
