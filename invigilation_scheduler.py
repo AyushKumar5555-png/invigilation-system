@@ -340,7 +340,7 @@ class InvigilationSolver:
                     gap = (day + 1) * 1440 + t2 - (day * 1440 + t1)
                     if gap < 120:
                         errors.append(
-                            f"Minimum Gap Violation: Faculty {faculty.name} ({f_id}) assigned at time {t1} on Day {day} and time {t2} on Day {day + 1} — gap is only {gap} minutes, minimum required is 120 minutes."
+                             f"Minimum Gap Violation: Faculty {faculty.name} ({f_id}) assigned at time {t1} on Day {day} and time {t2} on Day {day + 1} — gap is only {gap} minutes, minimum required is 120 minutes."
                         )
 
         if self.ratio_mode == "hard_category_limits":

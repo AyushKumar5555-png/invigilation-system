@@ -17,6 +17,7 @@ def check_gaps():
     
     print(f"Solve success: {result.success}")
     print(f"Feasibility report: {result.feasibility_report}")
+    print(f"Conflict report: {result.conflict_report}")
     
     # Map session ID to session object
     sess_map = {s.id: s for s in solver.sessions}
