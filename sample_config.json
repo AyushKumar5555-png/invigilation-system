@@ -513,183 +513,183 @@
     "history": [
         {
             "faculty_id": "02387",
-            "previous_imbalance": 1.2048913043478287
+            "previous_imbalance": 1.0744565217391333
         },
         {
             "faculty_id": "02236",
-            "previous_imbalance": -0.29510869565217135
+            "previous_imbalance": -0.4255434782608667
         },
         {
             "faculty_id": "02694",
-            "previous_imbalance": 1.2048913043478287
+            "previous_imbalance": 1.0744565217391333
         },
         {
             "faculty_id": "02238",
-            "previous_imbalance": 1.2048913043478287
+            "previous_imbalance": 1.0744565217391333
         },
         {
             "faculty_id": "02076",
-            "previous_imbalance": -0.8339673913043413
+            "previous_imbalance": 0.40516304347826804
         },
         {
             "faculty_id": "02665",
-            "previous_imbalance": -0.8339673913043413
+            "previous_imbalance": 0.40516304347826804
         },
         {
             "faculty_id": "02447",
-            "previous_imbalance": 0.6660326086956587
+            "previous_imbalance": 0.40516304347826804
         },
         {
             "faculty_id": "02121",
-            "previous_imbalance": -0.8339673913043413
+            "previous_imbalance": 0.40516304347826804
         },
         {
             "faculty_id": "08926",
-            "previous_imbalance": -0.8339673913043413
+            "previous_imbalance": 0.40516304347826804
         },
         {
             "faculty_id": "09183",
-            "previous_imbalance": -0.8339673913043413
+            "previous_imbalance": -1.094836956521732
         },
         {
             "faculty_id": "02164",
-            "previous_imbalance": -0.8339673913043413
+            "previous_imbalance": 0.40516304347826804
         },
         {
             "faculty_id": "02471",
-            "previous_imbalance": -0.8339673913043413
+            "previous_imbalance": 0.40516304347826804
         },
         {
             "faculty_id": "08804",
-            "previous_imbalance": -0.8339673913043413
+            "previous_imbalance": 0.40516304347826804
         },
         {
             "faculty_id": "09315",
-            "previous_imbalance": -0.8339673913043413
+            "previous_imbalance": 0.40516304347826804
         },
         {
             "faculty_id": "10287",
-            "previous_imbalance": -0.8339673913043413
+            "previous_imbalance": 0.40516304347826804
         },
         {
             "faculty_id": "11018",
-            "previous_imbalance": -0.8339673913043413
+            "previous_imbalance": 0.40516304347826804
         },
         {
             "faculty_id": "00041",
-            "previous_imbalance": 0.12717391304348524
+            "previous_imbalance": -0.2641304347826008
         },
         {
             "faculty_id": "02440",
-            "previous_imbalance": 0.12717391304347814
+            "previous_imbalance": -0.2641304347826079
         },
         {
             "faculty_id": "09054",
-            "previous_imbalance": 0.12717391304348524
+            "previous_imbalance": -0.2641304347826008
         },
         {
             "faculty_id": "08927",
-            "previous_imbalance": 0.12717391304347103
+            "previous_imbalance": 1.2358695652173886
         },
         {
             "faculty_id": "09413",
-            "previous_imbalance": 0.12717391304347103
+            "previous_imbalance": -0.264130434782615
         },
         {
             "faculty_id": "08745",
-            "previous_imbalance": 0.12717391304348524
+            "previous_imbalance": -0.2641304347826008
         },
         {
             "faculty_id": "02660",
-            "previous_imbalance": 0.12717391304348524
+            "previous_imbalance": -0.2641304347826008
         },
         {
             "faculty_id": "02664",
-            "previous_imbalance": 0.12717391304348524
+            "previous_imbalance": -0.2641304347826008
         },
         {
             "faculty_id": "01722",
-            "previous_imbalance": 0.12717391304348524
+            "previous_imbalance": -0.2641304347826008
         },
         {
             "faculty_id": "02395",
-            "previous_imbalance": 0.12717391304347103
+            "previous_imbalance": -0.264130434782615
         },
         {
             "faculty_id": "09013",
-            "previous_imbalance": 0.12717391304348524
+            "previous_imbalance": -0.2641304347826008
         },
         {
             "faculty_id": "10284",
-            "previous_imbalance": 0.12717391304348524
+            "previous_imbalance": -0.2641304347826008
         },
         {
             "faculty_id": "09999",
-            "previous_imbalance": 0.12717391304348524
+            "previous_imbalance": -0.2641304347826008
         },
         {
             "faculty_id": "10294",
-            "previous_imbalance": 0.12717391304348524
+            "previous_imbalance": -0.2641304347826008
         },
         {
             "faculty_id": "00060",
-            "previous_imbalance": 0.12717391304348524
+            "previous_imbalance": -0.2641304347826008
         },
         {
             "faculty_id": "10841",
-            "previous_imbalance": 1.6271739130434817
+            "previous_imbalance": -0.26413043478260434
         },
         {
             "faculty_id": "10845",
-            "previous_imbalance": 0.12717391304348524
+            "previous_imbalance": -0.2641304347826008
         },
         {
             "faculty_id": "10881",
-            "previous_imbalance": 0.12717391304347103
+            "previous_imbalance": -0.264130434782615
         },
         {
             "faculty_id": "10888",
-            "previous_imbalance": 0.12717391304348524
+            "previous_imbalance": -0.2641304347826008
         },
         {
             "faculty_id": "10891",
-            "previous_imbalance": 0.12717391304348524
+            "previous_imbalance": -0.2641304347826008
         },
         {
             "faculty_id": "10894",
-            "previous_imbalance": 0.12717391304348524
+            "previous_imbalance": -0.2641304347826008
         },
         {
             "faculty_id": "10931",
-            "previous_imbalance": 0.12717391304348524
+            "previous_imbalance": -0.2641304347826008
         },
         {
             "faculty_id": "10934",
-            "previous_imbalance": 0.12717391304348524
+            "previous_imbalance": -0.2641304347826008
         },
         {
             "faculty_id": "10950",
-            "previous_imbalance": 0.12717391304348524
+            "previous_imbalance": -0.2641304347826008
         },
         {
             "faculty_id": "10957",
-            "previous_imbalance": 0.12717391304348524
+            "previous_imbalance": -0.2641304347826008
         },
         {
             "faculty_id": "10967",
-            "previous_imbalance": 0.12717391304347103
+            "previous_imbalance": -0.264130434782615
         },
         {
             "faculty_id": "10974",
-            "previous_imbalance": 0.12717391304349235
+            "previous_imbalance": -0.2641304347825937
         },
         {
             "faculty_id": "10972",
-            "previous_imbalance": 0.12717391304347103
+            "previous_imbalance": -0.264130434782615
         },
         {
             "faculty_id": "11023",
-            "previous_imbalance": 0.12717391304348524
+            "previous_imbalance": -0.2641304347826008
         }
     ]
 }

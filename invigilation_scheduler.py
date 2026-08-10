@@ -10,6 +10,7 @@ from dataclasses import dataclass, field
 from typing import List, Dict, Set, Tuple, Optional, Any
 from datetime import datetime
 
+# Revert to working gap constraint, confirmed feasible with 0 unfilled slots
 # =====================================================================
 # 1. DATA MODELS
 # =====================================================================
