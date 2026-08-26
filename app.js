@@ -1575,7 +1575,10 @@ async function showFacultyWeeklyReport(facId) {
                     <td><strong>${sess.day_name}</strong></td>
                     <td>${sess.shift}</td>
                     <td>${sess.label}</td>
-                    <td><code>${sess.start_time_display}</code> (${sess.duration_hours} hrs)</td>
+                    <td>
+                        <div>Official: <code>${sess.start_time_display}</code> (${sess.duration_hours} hrs)</div>
+                        <div style="font-size: 0.85em; margin-top: 4px; color: #4f46e5;">Reporting Time: <code>${sess.display_reporting_time || sess.start_time_display}</code></div>
+                    </td>
                 </tr>`;
             });
         }

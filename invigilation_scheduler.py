@@ -1073,49 +1073,80 @@ class InvigilationSolver:
             })
         return grid
 
-    def get_faculty_display_time(self, faculty_id: str, session_id: str, result: AllocationResult) -> Tuple[str, str]:
-        # Count prior same-session_num assignments
-        faculty_rep = next((r for r in result.faculty_summaries if r.faculty_id == faculty_id), None)
-        if not faculty_rep:
-            return "", "x+0"
-        
-        # Sort chronologically
-        assigned_sessions = []
-        for s_id in faculty_rep.assigned_sessions:
-            s = next((sess for sess in self.sessions if sess.id == s_id), None)
-            if s:
-                assigned_sessions.append(s)
-        assigned_sessions.sort(key=lambda s: (s.day, s.session_num))
-        
-        target_session = next((s for s in self.sessions if s.id == session_id), None)
-        if not target_session:
-            return "", "x+0"
+    def get_faculty_display_time(self, faculty_id: str, *args, **kwargs) -> Any:
+        """Handles both signature versions:
+        1. get_faculty_display_time(self, faculty_id: str, result: 'AllocationResult') -> Dict[str, str]
+        2. get_faculty_display_time(self, faculty_id: str, session_id: str, result: AllocationResult) -> Tuple[str, str]
+        """
+        # If length of args is 2, or length of args is 1 and result/session_id in kwargs, it's the old signature.
+        if len(args) == 2 or (len(args) == 1 and ('result' in kwargs or 'session_id' in kwargs)) or ('session_id' in kwargs and 'result' in kwargs):
+            # OLD SIGNATURE
+            session_id = args[0] if len(args) > 0 else kwargs.get('session_id')
+            result = args[1] if len(args) > 1 else kwargs.get('result')
             
-        shift_type = target_session.session_num
-        N = 0
-        for s in assigned_sessions:
-            if s.id == session_id:
-                break
-            if s.session_num == shift_type:
-                N += 1
-                
-        faculty = self.faculty_map.get(faculty_id)
-        
-        offset = N * 120
-        pattern = "x+2"
-        max_window = int(target_session.duration_hours * 60)
-        
-        # Conflict check or window exceed check
-        if offset >= max_window:
-            offset = N * 60
-            pattern = "x+1"
+            faculty_rep = next((r for r in result.faculty_summaries if r.faculty_id == faculty_id), None)
+            if not faculty_rep:
+                return "", "x+0"
+            assigned_sessions = []
+            for s_id in faculty_rep.assigned_sessions:
+                s = next((sess for sess in self.sessions if sess.id == s_id), None)
+                if s:
+                    assigned_sessions.append(s)
+            assigned_sessions.sort(key=lambda s: (s.day, s.session_num))
+            target_session = next((s for s in self.sessions if s.id == session_id), None)
+            if not target_session:
+                return "", "x+0"
+            shift_type = target_session.session_num
+            N = 0
+            for s in assigned_sessions:
+                if s.id == session_id:
+                    break
+                if s.session_num == shift_type:
+                    N += 1
+            faculty = self.faculty_map.get(faculty_id)
+            offset = N * 120
+            pattern = "x+2"
+            max_window = int(target_session.duration_hours * 60)
             if offset >= max_window:
-                offset = 0
-                pattern = "x+0"
+                offset = N * 60
+                pattern = "x+1"
+                if offset >= max_window:
+                    offset = 0
+                    pattern = "x+0"
+            display_time = target_session.start_time + offset
+            display_str = f"{display_time // 60:02d}:{display_time % 60:02d}"
+            return display_str, pattern
+        else:
+            # NEW SIGNATURE
+            result = args[0] if len(args) > 0 else kwargs.get('result')
+            report = next((r for r in result.faculty_summaries if r.faculty_id == faculty_id), None)
+            if not report:
+                return {}
+            faculty = self.faculty_map.get(faculty_id)
+            assigned = [next(s for s in self.sessions if s.id == sid) for sid in report.assigned_sessions]
+            assigned.sort(key=lambda s: (s.day, s.session_num))
+            
+            counts = {1: 0, 2: 0}  # occurrence counter per shift-type
+            display_times = {}
+            CUTOFF_MINUTES = 1200  # 8:00 PM
+            
+            for s in assigned:
+                occurrence = counts[s.session_num]
+                offset_120 = occurrence * 120
+                candidate_time = s.start_time + offset_120
                 
-        display_time = target_session.start_time + offset
-        display_str = f"{display_time // 60:02d}:{display_time % 60:02d}"
-        return display_str, pattern
+                if candidate_time > CUTOFF_MINUTES and faculty and faculty.category_name != "Professor":
+                    offset_60 = occurrence * 60
+                    final_time = s.start_time + offset_60
+                else:
+                    final_time = candidate_time
+                
+                h = (final_time // 60) % 24
+                m = final_time % 60
+                display_times[s.id] = f"{h:02d}:{m:02d}"
+                counts[s.session_num] += 1
+                
+            return display_times
 
     def get_faculty_weekly_report(self, faculty_id: str, result: AllocationResult, input_data: AllocationInput) -> Dict:
         report = next((r for r in result.faculty_summaries if r.faculty_id == faculty_id), None)
@@ -1123,6 +1154,8 @@ class InvigilationSolver:
             return {}
         
         day_names = {1: "Monday", 2: "Tuesday", 3: "Wednesday", 4: "Thursday", 5: "Friday", 6: "Saturday"}
+        
+        display_times_dict = self.get_faculty_display_time(faculty_id, result)
         
         assigned_sessions_info = []
         for s_id in report.assigned_sessions:
@@ -1140,7 +1173,8 @@ class InvigilationSolver:
                     "start_time_display": f"{s.start_time // 60:02d}:{s.start_time % 60:02d}",
                     "display_start_time": display_time_str,
                     "offset_pattern": offset_pat,
-                    "duration_hours": s.duration_hours
+                    "duration_hours": s.duration_hours,
+                    "display_reporting_time": display_times_dict.get(s.id)
                 })
         
         return {
