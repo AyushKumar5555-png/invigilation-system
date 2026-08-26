@@ -121,6 +121,9 @@ def bootstrap_state():
         print(f"Failed to bootstrap solver state: {e}")
         return {}
 
+_LAST_SOLVE_RESULT = None
+_LAST_SOLVE_INPUT = None
+
 class InvigilationHandler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=WORKSPACE_DIR, **kwargs)
@@ -147,17 +150,16 @@ class InvigilationHandler(http.server.SimpleHTTPRequestHandler):
         try:
             parts = self.path.split('/')
             faculty_id = parts[3]
-            config_path = os.path.join(WORKSPACE_DIR, 'sample_config.json')
-            if not os.path.exists(config_path):
-                self.send_json_response(404, {"error": "Config not found"})
+            global _LAST_SOLVE_RESULT, _LAST_SOLVE_INPUT
+            if _LAST_SOLVE_RESULT is None or _LAST_SOLVE_INPUT is None:
+                self.send_json_response(400, {"error": "Run allocation first."})
                 return
-            with open(config_path, 'r', encoding='utf-8') as f:
-                payload = json.load(f)
-            input_data = load_from_dict(payload)
-            ratio_mode = payload.get("category_ratio_mode", "target_load_scaling")
-            solver = InvigilationSolver(input_data, ratio_mode=ratio_mode)
-            result = solver.solve()
-            report = solver.get_faculty_weekly_report(faculty_id, result, input_data)
+            
+            # Construct a lightweight solver instance from _LAST_SOLVE_INPUT only for calling get_faculty_weekly_report
+            # category_ratio_mode is not strictly required if we only query the report, but let's pass dummy or read it
+            ratio_mode = "target_load_scaling"  # default fallback or we can read from _LAST_SOLVE_INPUT if available
+            solver = InvigilationSolver(_LAST_SOLVE_INPUT, ratio_mode=ratio_mode)
+            report = solver.get_faculty_weekly_report(faculty_id, _LAST_SOLVE_RESULT, _LAST_SOLVE_INPUT)
             self.send_json_response(200, report)
         except Exception as e:
             self.send_json_response(500, {"error": f"Failed to get faculty report: {str(e)}"})
@@ -221,6 +223,11 @@ class InvigilationHandler(http.server.SimpleHTTPRequestHandler):
             
             solver = InvigilationSolver(input_data, ratio_mode=ratio_mode)
             result = solver.solve()
+
+            if result.success:
+                global _LAST_SOLVE_RESULT, _LAST_SOLVE_INPUT
+                _LAST_SOLVE_RESULT = result
+                _LAST_SOLVE_INPUT = input_data
 
             # If successful solve, persist history/imbalance data for next time
             if result.success:

@@ -322,27 +322,18 @@ class InvigilationSolver:
                     )
                     
         # Same-day and consecutive day minimum gap violations using faculty_day_times
-        for f_id, day_map in faculty_day_times.items():
+        for f_id in faculty_day_duties:
             faculty = self.faculty_map[f_id]
-            for day, times in day_map.items():
-                # Same-day minimum gap check
-                if len(times) > 1:
-                    for i in range(len(times) - 1):
-                        gap = abs(times[i+1] - times[i])
-                        if gap < 120:
-                            errors.append(
-                                f"Same-Day Minimum Gap Violation: Faculty {faculty.name} ({f_id}) assigned to "
-                                f"multiple sessions on Day {day} with gap of only {gap} minutes."
-                            )
-                # Consecutive day gap check (last duty of day vs first duty of next day)
-                if day + 1 in day_map:
-                    t1 = max(times)
-                    t2 = min(day_map[day + 1])
-                    gap = (day + 1) * 1440 + t2 - (day * 1440 + t1)
-                    if gap < 120:
-                        errors.append(
-                             f"Minimum Gap Violation: Faculty {faculty.name} ({f_id}) assigned at time {t1} on Day {day} and time {t2} on Day {day + 1} — gap is only {gap} minutes, minimum required is 120 minutes."
-                        )
+            for day in faculty_day_duties[f_id]:
+                if day + 1 in faculty_day_duties[f_id]:
+                    s1_list = [next(s for s in self.sessions if s.id == s_id) for s_id in faculty_day_duties[f_id][day]]
+                    s2_list = [next(s for s in self.sessions if s.id == s_id) for s_id in faculty_day_duties[f_id][day+1]]
+                    for s1 in s1_list:
+                        for s2 in s2_list:
+                            if s1.session_num == s2.session_num:
+                                errors.append(
+                                     f"Consecutive Day Violation: Faculty {faculty.name} ({f_id}) assigned to same shift slot on consecutive days {day} and {day + 1}."
+                                )
 
         if self.ratio_mode == "hard_category_limits":
             for f_id, load in faculty_load.items():
@@ -737,6 +728,7 @@ class InvigilationSolver:
         return best_obj, best_assignment
 
     def solve(self, max_steps: int = 100000, run_diag: bool = True) -> AllocationResult:
+        print("SOLVER VERSION: hard-gap-constraint-v3")
         # Feasibility check abort
         is_feas, msg = self.check_feasibility()
         if not is_feas:
@@ -814,15 +806,25 @@ class InvigilationSolver:
                         if abs(s1.start_time - s2.start_time) < 120:
                             model.Add(x[f.id, s1.id] + x[f.id, s2.id] <= 1)
 
-        # Consecutive day 120-minute gap constraint
+        # Consecutive day: same session_num (same shift slot) penalty
+        same_slot_penalty_vars = []
+        weighted_penalty_terms = []
         for f in self.input_data.faculty_list:
             for d in sessions_by_day:
                 if d + 1 in sessions_by_day:
                     for s1 in sessions_by_day[d]:
                         for s2 in sessions_by_day[d+1]:
-                            gap = (s2.day * 1440 + s2.start_time) - (s1.day * 1440 + s1.start_time)
-                            if gap < 120:
-                                model.Add(x[f.id, s1.id] + x[f.id, s2.id] <= 1)
+                            if s1.session_num == s2.session_num:
+                                # Original same-slot penalty
+                                penalty_var = model.NewBoolVar(f'penalty_{f.id}_{s1.id}_{s2.id}')
+                                model.Add(x[f.id, s1.id] + x[f.id, s2.id] - 1 <= penalty_var)
+                                same_slot_penalty_vars.append(penalty_var)
+                                
+                                # Category-based tiered penalty
+                                gap_penalty_var = model.NewBoolVar(f'gap_penalty_{f.id}_{s1.id}_{s2.id}')
+                                model.Add(x[f.id, s1.id] + x[f.id, s2.id] - 1 <= gap_penalty_var)
+                                weight = 100000 if f.category_name == "Professor" else 10000
+                                weighted_penalty_terms.append(weight * gap_penalty_var)
 
         # 3. Objective: minimize total squared deviation (linearized using absolute deviation)
         # Scale factor for floating point hours
@@ -838,11 +840,11 @@ class InvigilationSolver:
             model.Add(dev_f >= target_net_scaled - assigned_load_scaled_expr)
             dev_vars.append(dev_f)
 
-        model.Minimize(sum(dev_vars))
+        model.Minimize(sum(dev_vars) + 100000 * sum(same_slot_penalty_vars) + sum(weighted_penalty_terms))
 
         # 4. Solver parameters & solve
         solver = cp_model.CpSolver()
-        solver.parameters.max_time_in_seconds = 10.0
+        solver.parameters.max_time_in_seconds = 30.0
         solver.parameters.num_search_workers = 8
         
         start_solve_time = time.time()
@@ -919,7 +921,7 @@ class InvigilationSolver:
         
         coverage_errors = [e for e in validation_errors if "Coverage" in e]
         hard_limit_errors = [e for e in validation_errors if "Hard Category Limit" in e]
-        other_errors = [e for e in validation_errors if "Coverage" not in e and "Hard Category Limit" not in e]
+        other_errors = [e for e in validation_errors if "Coverage" not in e and "Hard Category Limit" not in e and "Consecutive Day" not in e]
         
         if other_errors or coverage_errors:
             feasibility_status = "INFEASIBLE"
@@ -1071,6 +1073,50 @@ class InvigilationSolver:
             })
         return grid
 
+    def get_faculty_display_time(self, faculty_id: str, session_id: str, result: AllocationResult) -> Tuple[str, str]:
+        # Count prior same-session_num assignments
+        faculty_rep = next((r for r in result.faculty_summaries if r.faculty_id == faculty_id), None)
+        if not faculty_rep:
+            return "", "x+0"
+        
+        # Sort chronologically
+        assigned_sessions = []
+        for s_id in faculty_rep.assigned_sessions:
+            s = next((sess for sess in self.sessions if sess.id == s_id), None)
+            if s:
+                assigned_sessions.append(s)
+        assigned_sessions.sort(key=lambda s: (s.day, s.session_num))
+        
+        target_session = next((s for s in self.sessions if s.id == session_id), None)
+        if not target_session:
+            return "", "x+0"
+            
+        shift_type = target_session.session_num
+        N = 0
+        for s in assigned_sessions:
+            if s.id == session_id:
+                break
+            if s.session_num == shift_type:
+                N += 1
+                
+        faculty = self.faculty_map.get(faculty_id)
+        
+        offset = N * 120
+        pattern = "x+2"
+        max_window = int(target_session.duration_hours * 60)
+        
+        # Conflict check or window exceed check
+        if offset >= max_window:
+            offset = N * 60
+            pattern = "x+1"
+            if offset >= max_window:
+                offset = 0
+                pattern = "x+0"
+                
+        display_time = target_session.start_time + offset
+        display_str = f"{display_time // 60:02d}:{display_time % 60:02d}"
+        return display_str, pattern
+
     def get_faculty_weekly_report(self, faculty_id: str, result: AllocationResult, input_data: AllocationInput) -> Dict:
         report = next((r for r in result.faculty_summaries if r.faculty_id == faculty_id), None)
         if not report:
@@ -1083,6 +1129,7 @@ class InvigilationSolver:
             s = next((sess for sess in input_data.sessions if sess.id == s_id), None)
             if s:
                 shift_name = "Morning" if s.session_num == 1 else "Afternoon"
+                display_time_str, offset_pat = self.get_faculty_display_time(faculty_id, s.id, result)
                 assigned_sessions_info.append({
                     "session_id": s.id,
                     "day_num": s.day,
@@ -1091,6 +1138,8 @@ class InvigilationSolver:
                     "label": s.label,
                     "start_time": s.start_time,
                     "start_time_display": f"{s.start_time // 60:02d}:{s.start_time % 60:02d}",
+                    "display_start_time": display_time_str,
+                    "offset_pattern": offset_pat,
                     "duration_hours": s.duration_hours
                 })
         
